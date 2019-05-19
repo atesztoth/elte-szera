@@ -11,9 +11,9 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 public class SzerajApplicationTests {
 
-	@Test
-	public void contextLoads() {
-		assertEquals(5, 5);
-	}
+    @Test
+    public void contextLoads() {
+        assertEquals(5, 5);
+    }
 
 }

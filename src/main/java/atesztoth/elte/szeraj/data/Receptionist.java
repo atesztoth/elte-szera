@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "guests")
-public class Guest implements Serializable {
+@Table(name = "receptionists")
+public class Receptionist implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +39,6 @@ public class Guest implements Serializable {
         this.password = password;
     }
 
-    public Guest() {
+    public Receptionist() {
     }
 }
