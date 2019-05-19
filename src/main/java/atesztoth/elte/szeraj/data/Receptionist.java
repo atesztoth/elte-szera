@@ -39,6 +39,5 @@ public class Receptionist implements Serializable {
         this.password = password;
     }
 
-    public Receptionist() {
-    }
+    public Receptionist() { }
 }

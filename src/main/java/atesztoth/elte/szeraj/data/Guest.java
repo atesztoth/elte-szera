@@ -5,23 +5,11 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "guests")
-public class Guest implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Guest extends Person implements Serializable {
 
     private String username;
 
     private String password;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -39,6 +27,5 @@ public class Guest implements Serializable {
         this.password = password;
     }
 
-    public Guest() {
-    }
+    public Guest() { }
 }
