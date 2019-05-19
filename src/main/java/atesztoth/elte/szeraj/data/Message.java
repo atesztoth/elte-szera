@@ -14,10 +14,17 @@ public class Message implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String message;
+
     private Date sent;
 
     @Nullable
+    private String attachedPhoneNumber;
+
+    @Nullable
     private Date delivered;
+
+    private Person sender;
 
     public Message() { }
 }

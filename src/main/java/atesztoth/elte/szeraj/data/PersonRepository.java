@@ -8,3 +8,4 @@ import javax.transaction.Transactional;
 @Transactional
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> { }
+
