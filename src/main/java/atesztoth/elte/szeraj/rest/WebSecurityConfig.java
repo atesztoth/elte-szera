@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
+        // Factory method 'userDetailsService' threw exception; nested exception is java.lang.NullPointerException
         SzerajUserProvider szerajUserProvider = new SzerajUserProvider();
         szerajUserProvider.loadUserByUsername("aa");
         InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
