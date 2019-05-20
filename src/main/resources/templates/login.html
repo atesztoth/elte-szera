@@ -1,77 +1,17 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="hu">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <title>SZERÁJ - Bejelentkező felület</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.2.0/classic/theme-neptune/resources/theme-neptune-all.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.2.0/ext-all-debug.js"></script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.2.0/classic/theme-neptune/theme-neptune.js"></script>
-    <!--
-             <link rel="stylesheet" type="text/css"	href="extjs/theme-neptune-all.css">
-            <script type="text/javascript"	src="extjs/ext-all-debug.js"></script>
-            <script type="text/javascript"	src="extjs/theme-neptune.js"></script>
-     -->
-    <script type="text/javascript">
-      Ext.onReady(function () {
-        let field, panel;
-
-        const loginpanel = Ext.create('Ext.form.Panel', {
-          region: 'center',
-          title: 'Bejelentkező panel',
-          standardSubmit: true,
-          width: 350,
-          height: 350,
-          url: '/login',
-          items: [
-            {
-              xtype: 'textfield',
-              fieldLabel: 'Felhasználó név',
-              name: 'username'
-            },
-            {
-              xtype: 'textfield',
-              inputType: 'password',
-              fieldLabel: 'Jelszó',
-              name: 'password'
-            }
-          ],
-          buttons: [
-            {
-              text: "Login",
-              handler: function () {
-                const form = this.up('form').getForm();
-                form.submit({
-                  success: function (form, action) {
-                    Ext.Msg.alert('Success', action.result.msg);
-                  },
-                  failure: function (form, action) {
-                    Ext.Msg.alert('Failed', action.result.msg);
-                  }
-                })
-              }
-            },
-            {
-              text: "Reset",
-              handler: function () {
-                this.up('form').getForm().reset();
-              }
-            }
-          ]
-        });
-
-        Ext.create('Ext.panel.Panel', {
-          renderTo: "maindiv",
-          width: 1000,
-          height: 500,
-          layout: 'border',
-          items: [loginpanel]
-        }).center();
-      });
-    </script>
+    <title>Login page</title>
 </head>
 <body>
-<div id="maindiv" style="height: 500px"></div>
+<h1>Login page</h1>
+<p th:if="${loginError}" class="error">Wrong user or password</p>
+<form th:action="@{/login.html}" method="post">
+    <label for="username">Username</label>:
+    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+    <label for="password">Password</label>:
+    <input type="password" id="password" name="password" /> <br />
+    <input type="submit" value="Log in" />
+</form>
 </body>
 </html>

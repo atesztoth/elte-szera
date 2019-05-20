@@ -1,11 +1,17 @@
 package atesztoth.elte.szeraj.data;
 
+import atesztoth.elte.szeraj.utils.Authenticable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "receptionists")
-public class Receptionist implements Serializable {
+public class Receptionist implements Serializable, Authenticable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +46,11 @@ public class Receptionist implements Serializable {
     }
 
     public Receptionist() { }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_RECEPTIONIST"));
+        return authorities;
+    }
 }

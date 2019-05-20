@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "friends")
+@Table(name = "messages")
 public class Message implements Serializable {
 
     @Id

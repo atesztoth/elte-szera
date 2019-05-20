@@ -7,4 +7,6 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface GuestRepository extends JpaRepository<Guest, Integer> { }
+public interface GuestRepository extends JpaRepository<Guest, Integer> {
+    public Guest findByUsername(String username);
+}
