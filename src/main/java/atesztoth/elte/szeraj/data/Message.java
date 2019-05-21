@@ -1,5 +1,7 @@
 package atesztoth.elte.szeraj.data;
 
+import atesztoth.elte.szeraj.Domain.MessagePresentation;
+import atesztoth.elte.szeraj.Domain.MessageType;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -10,12 +12,27 @@ import java.util.Date;
 @Table(name = "messages")
 public class Message implements Serializable {
 
+    public static Message createFromPresentation(MessagePresentation presentation) {
+        Message message = new Message();
+        message.setId(presentation.getId());
+        message.setMessage(presentation.getMessage());
+        message.setSent(presentation.getSent());
+        message.setAttachedPhoneNumber(presentation.getAttachedPhoneNumber());
+        message.setDelivered(presentation.getDelivered());
+        message.setGuest(presentation.getGuest());
+        message.setFriend(presentation.getFriend());
+        message.setMessageType(presentation.getMessageType());
+
+        return message;
+    }
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String message;
 
     private Date sent;
@@ -26,9 +43,14 @@ public class Message implements Serializable {
     @Nullable
     private Date delivered;
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private User guest;
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private Friend friend;
+
+    @Enumerated(EnumType.STRING)
+    private MessageType messageType;
 
     // GET SET
     public int getId() {
@@ -87,5 +109,13 @@ public class Message implements Serializable {
 
     public void setFriend(Friend friend) {
         this.friend = friend;
+    }
+
+    public MessageType getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
     }
 }

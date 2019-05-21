@@ -1,6 +1,8 @@
 package atesztoth.elte.szeraj.data;
 
 import atesztoth.elte.szeraj.Domain.Role;
+import atesztoth.elte.szeraj.Domain.UserPresentation;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +12,16 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public static User createFromPresentation(UserPresentation presentation) {
+        User user = new User();
+        user.setUsername(presentation.getUsername());
+        user.setFirstName(presentation.getFirstName());
+        user.setLastName(presentation.getLastName());
+        user.setPassword(new BCryptPasswordEncoder().encode(presentation.getPassword()));
+        user.setType(presentation.getType());
+        return user;
+    }
 
     @Id
     private String username;

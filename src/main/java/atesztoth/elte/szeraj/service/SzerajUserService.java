@@ -1,10 +1,9 @@
 package atesztoth.elte.szeraj.service;
 
-import atesztoth.elte.szeraj.Domain.PresentationUser;
+import atesztoth.elte.szeraj.Domain.UserPresentation;
 import atesztoth.elte.szeraj.data.User;
 import atesztoth.elte.szeraj.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,13 +25,8 @@ public class SzerajUserService implements UserService {
     }
 
     @Override
-    public User createUser(PresentationUser presentationUser) {
-        User user = new User();
-        user.setUsername(presentationUser.getUsername());
-        user.setFirstName(presentationUser.getFirstName());
-        user.setLastName(presentationUser.getLastName());
-        user.setPassword(new BCryptPasswordEncoder().encode(presentationUser.getPassword()));
-        user.setType(presentationUser.getType());
+    public User createUser(UserPresentation userPresentation) {
+        User user = User.createFromPresentation(userPresentation);
         return userRepository.save(user);
     }
 

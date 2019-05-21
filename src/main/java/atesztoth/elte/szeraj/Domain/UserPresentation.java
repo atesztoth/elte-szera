@@ -1,11 +1,13 @@
 package atesztoth.elte.szeraj.Domain;
 
+import atesztoth.elte.szeraj.data.User;
+
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
-public class PresentationUser {
+public class UserPresentation {
     @Id
     private String username;
 
@@ -20,6 +22,8 @@ public class PresentationUser {
 
     @Enumerated(EnumType.STRING)
     private Role type;
+
+    private User managedUser;
 
     public String getUsername() {
         return username;
@@ -59,5 +63,13 @@ public class PresentationUser {
 
     public void setType(Role type) {
         this.type = type;
+    }
+
+    public User getManagedUser() {
+        return managedUser;
+    }
+
+    public void setManagedUser(User managedUser) {
+        this.managedUser = managedUser;
     }
 }

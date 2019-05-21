@@ -23,11 +23,6 @@ public class SzerajUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("Authenticating " + username);
-        logger.trace("A TRACE Message");
-        logger.debug("A DEBUG Message");
-        logger.info("An INFO Message");
-        logger.warn("A WARN Message");
-        logger.error("An ERROR Message");
         Optional<User> user = userService.getByUsername(username);
         if (!user.isPresent()) {
             throw new UsernameNotFoundException(username);

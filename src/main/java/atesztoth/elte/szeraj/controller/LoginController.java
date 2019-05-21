@@ -1,6 +1,7 @@
 package atesztoth.elte.szeraj.controller;
 
-import atesztoth.elte.szeraj.Domain.PresentationUser;
+import atesztoth.elte.szeraj.Domain.MessagePresentation;
+import atesztoth.elte.szeraj.Domain.UserPresentation;
 import atesztoth.elte.szeraj.Domain.Role;
 import atesztoth.elte.szeraj.service.UserService;
 import org.slf4j.Logger;
@@ -23,13 +24,18 @@ public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     private void createDummyUser() {
-        final PresentationUser presentationUser = new PresentationUser();
-        presentationUser.setUsername("atesztoth");
-        presentationUser.setFirstName("Attila");
-        presentationUser.setLastName("Tóth");
-        presentationUser.setPassword("aa");
-        presentationUser.setType(Role.GUEST);
-        userService.createUser(presentationUser);
+        final UserPresentation userPresentation = new UserPresentation();
+        userPresentation.setUsername("atesztoth");
+        userPresentation.setFirstName("Attila");
+        userPresentation.setLastName("Tóth");
+        userPresentation.setPassword("aa");
+        userPresentation.setType(Role.GUEST);
+        userService.createUser(userPresentation);
+    }
+
+    private void createMessage() {
+        final MessagePresentation presentation = new MessagePresentation();
+        presentation.setMessage("New message mannn");
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
