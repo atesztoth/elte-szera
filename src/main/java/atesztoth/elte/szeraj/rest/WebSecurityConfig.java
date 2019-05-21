@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http
             .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/dashboard").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/dashboard").hasRole("GUEST")
                 .antMatchers("/login*").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and().csrf().disable()
