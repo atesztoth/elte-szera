@@ -1,17 +1,19 @@
 package atesztoth.elte.szeraj.rest;
 
-import atesztoth.elte.szeraj.service.SzerajUserProvider;
+import atesztoth.elte.szeraj.service.SzerajUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -19,30 +21,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
 
+    @Autowired
+    SzerajUserDetailsService szerajUserDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
         http
-                .formLogin()
-                    .loginPage("/login")
-                    .failureUrl("/login-error")
+            .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/dashboard").hasRole("USER")
+                .antMatchers("/login*").permitAll()
+                .anyRequest().fullyAuthenticated()
+                .and().csrf().disable()
+            .formLogin()
+                .loginPage("/login")
+                .failureUrl("/login?error")
+                .usernameParameter("username")
+                .permitAll()
                 .and()
-                    .logout()
-                    .logoutSuccessUrl("/index");
+            .logout()
+                .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .permitAll();
+        // @formatter:on
     }
 
-    @Bean
     @Override
-    public UserDetailsService userDetailsService() {
-        // Factory method 'userDetailsService' threw exception; nested exception is java.lang.NullPointerException
-        SzerajUserProvider szerajUserProvider = new SzerajUserProvider();
-        szerajUserProvider.loadUserByUsername("aa");
-        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
-        userDetailsManager.createUser(
-                User.withUsername("aa")
-                        .password("aa")
-                        .roles("USER")
-                        .build());
-        return userDetailsManager;
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(szerajUserDetailsService)
+                .passwordEncoder(new BCryptPasswordEncoder());
     }
 
 }

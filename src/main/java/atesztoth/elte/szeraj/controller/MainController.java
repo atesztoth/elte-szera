@@ -1,23 +1,19 @@
 package atesztoth.elte.szeraj.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
 
-    // Login form
-    @RequestMapping("/login")
-    public String login() {
-        return "login.html";
-    }
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-    // Login form with error
-    @RequestMapping("/login-error")
-    public String loginError(Model model) {
-        model.addAttribute("loginError", true);
-        return "login.html";
+    @RequestMapping({"/index", "/"})
+    public String index() {
+        logger.debug("Getting home page");
+        return "index.html";
     }
 
 }
