@@ -1,5 +1,6 @@
 package atesztoth.elte.szeraj;
 
+import atesztoth.elte.szeraj.data.Message;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,6 +54,19 @@ public class SzerajApplicationTests {
     @After
     public void tearDown() throws Exception {
         log.info("TearDown executing");
+    }
+
+    @Test
+    public void testGetAllMessagesOfUser() throws Exception {
+        String uri = "/guest/messages";
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        Message[] messages = mapFromJson(content, Message[].class);
+        log.info("GetAllOsztaly returned " + messages.length + " osztaly");
+        assertTrue(messages.length > 0);
     }
 
 }

@@ -50,7 +50,7 @@ public class Message implements Serializable {
     private Friend friend;
 
     @Enumerated(EnumType.STRING)
-    private MessageType messageType;
+    private MessageType messageType = MessageType.OUTGOING;
 
     // GET SET
     public int getId() {

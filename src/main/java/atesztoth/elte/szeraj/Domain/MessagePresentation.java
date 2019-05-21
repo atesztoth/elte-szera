@@ -40,7 +40,7 @@ public class MessagePresentation {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -56,7 +56,7 @@ public class MessagePresentation {
         return sent;
     }
 
-    private void setSent(Date sent) {
+    public void setSent(Date sent) {
         this.sent = sent;
     }
 
@@ -64,7 +64,7 @@ public class MessagePresentation {
         return attachedPhoneNumber;
     }
 
-    private void setAttachedPhoneNumber(String attachedPhoneNumber) {
+    public void setAttachedPhoneNumber(String attachedPhoneNumber) {
         this.attachedPhoneNumber = attachedPhoneNumber;
     }
 
@@ -72,7 +72,7 @@ public class MessagePresentation {
         return delivered;
     }
 
-    private void setDelivered(Date delivered) {
+    public void setDelivered(Date delivered) {
         this.delivered = delivered;
     }
 
@@ -80,7 +80,7 @@ public class MessagePresentation {
         return guest;
     }
 
-    private void setGuest(User guest) {
+    public void setGuest(User guest) {
         this.guest = guest;
     }
 
@@ -88,7 +88,7 @@ public class MessagePresentation {
         return friend;
     }
 
-    private void setFriend(Friend friend) {
+    public void setFriend(Friend friend) {
         this.friend = friend;
     }
 
@@ -96,7 +96,7 @@ public class MessagePresentation {
         return messageType;
     }
 
-    private void setMessageType(MessageType messageType) {
+    public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
     }
 
