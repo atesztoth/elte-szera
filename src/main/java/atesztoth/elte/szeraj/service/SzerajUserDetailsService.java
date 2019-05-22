@@ -1,6 +1,6 @@
 package atesztoth.elte.szeraj.service;
 
-import atesztoth.elte.szeraj.Domain.CurrentUser;
+import atesztoth.elte.szeraj.presentation.CurrentUser;
 import atesztoth.elte.szeraj.data.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

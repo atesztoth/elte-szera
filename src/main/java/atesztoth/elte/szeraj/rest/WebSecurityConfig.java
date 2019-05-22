@@ -1,6 +1,6 @@
 package atesztoth.elte.szeraj.rest;
 
-import atesztoth.elte.szeraj.Domain.Role;
+import atesztoth.elte.szeraj.presentation.Role;
 import atesztoth.elte.szeraj.service.SzerajUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +27,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http
             .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/dashboard").hasRole(Role.GUEST.toString())
-                .antMatchers(HttpMethod.POST, "/dashboard").hasRole(Role.GUEST.toString())
+                .antMatchers(HttpMethod.GET, "/dashboard").hasAnyRole(Role.GUEST.toString(), Role.RECEPTIONIST.toString())
+                .antMatchers(HttpMethod.POST, "/dashboard").hasAnyRole(Role.GUEST.toString(), Role.RECEPTIONIST.toString())
                 .antMatchers(HttpMethod.GET, "/guest/**").hasRole(Role.GUEST.toString())
                 .antMatchers(HttpMethod.GET,"/receptionist/**").hasRole(Role.RECEPTIONIST.toString())
+                .antMatchers(HttpMethod.POST,"/receptionist/**").hasRole(Role.RECEPTIONIST.toString())
                 .antMatchers("/login*").permitAll()
                 .and()
             .csrf().disable()

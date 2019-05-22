@@ -1,5 +1,7 @@
 package atesztoth.elte.szeraj.data;
 
+import atesztoth.elte.szeraj.presentation.FriendPresentation;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,6 +10,13 @@ import java.io.Serializable;
 public class Friend implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public static Friend createFromPresentation(FriendPresentation friendPresentation) {
+        Friend friend = new Friend();
+        friend.setId(friendPresentation.getId());
+        friend.setName(friendPresentation.getName());
+        return friend;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

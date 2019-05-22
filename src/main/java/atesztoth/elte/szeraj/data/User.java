@@ -1,7 +1,7 @@
 package atesztoth.elte.szeraj.data;
 
-import atesztoth.elte.szeraj.Domain.Role;
-import atesztoth.elte.szeraj.Domain.UserPresentation;
+import atesztoth.elte.szeraj.presentation.Role;
+import atesztoth.elte.szeraj.presentation.UserPresentation;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -88,4 +88,6 @@ public class User implements Serializable {
     public String getId() {
         return getUsername();
     }
+
+    public void setId(String id) { setUsername(id); }
 }

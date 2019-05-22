@@ -1,7 +1,7 @@
 package atesztoth.elte.szeraj.data;
 
-import atesztoth.elte.szeraj.Domain.MessagePresentation;
-import atesztoth.elte.szeraj.Domain.MessageType;
+import atesztoth.elte.szeraj.presentation.MessagePresentation;
+import atesztoth.elte.szeraj.presentation.MessageType;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;

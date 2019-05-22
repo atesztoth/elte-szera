@@ -1,4 +1,4 @@
-package atesztoth.elte.szeraj.Domain;
+package atesztoth.elte.szeraj.presentation;
 
 import atesztoth.elte.szeraj.data.Friend;
 
@@ -37,5 +37,10 @@ public class FriendPresentation {
 
     public void setManagedEntity(Friend managedEntity) {
         this.managedEntity = managedEntity;
+    }
+
+    public FriendPresentation dropManaged() {
+        this.setManagedEntity(null);
+        return this;
     }
 }

@@ -1,4 +1,4 @@
-package atesztoth.elte.szeraj.Domain;
+package atesztoth.elte.szeraj.presentation;
 
 import atesztoth.elte.szeraj.data.User;
 import org.slf4j.Logger;

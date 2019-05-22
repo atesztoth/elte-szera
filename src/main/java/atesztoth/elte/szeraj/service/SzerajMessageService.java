@@ -1,14 +1,12 @@
 package atesztoth.elte.szeraj.service;
 
-import atesztoth.elte.szeraj.Domain.MessagePresentation;
+import atesztoth.elte.szeraj.presentation.MessagePresentation;
 import atesztoth.elte.szeraj.data.Message;
 import atesztoth.elte.szeraj.data.MessageRepository;
 import atesztoth.elte.szeraj.data.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,29 +23,27 @@ public class SzerajMessageService implements MessageService {
     }
 
     @Override
-    public MessagePresentation createMessage(MessagePresentation messagePresentation) {
-        Message message = Message.createFromPresentation(messagePresentation);
-        messageRepository.save(message);
-        messagePresentation.setManagedMessage(message);
-        return messagePresentation;
-    }
-
-    @Override
-    public MessagePresentation createMessage(Message message) {
-        return MessagePresentation.createFromEntity(messageRepository.save(message));
-    }
-
-    @Override
-    public MessagePresentation removeMessage(MessagePresentation messagePresentation) {
-        return MessagePresentation
-                .createFromEntity(messageRepository.removeById(messagePresentation.getId())).dropManaged();
-    }
-
-    @Override
     public List<MessagePresentation> getAllForUser(User user) {
         ArrayList<Message> messages = new ArrayList<>(messageRepository.findAllByGuest(user));
         return messages.stream().map(MessagePresentation::createFromEntity).collect(Collectors.toList());
     }
 
+    public MessagePresentation create(Message message) {
+        return MessagePresentation.createFromEntity(messageRepository.save(message));
+    }
 
+    // Content Service conformation
+    @Override
+    public MessagePresentation create(MessagePresentation presentation) {
+        Message message = Message.createFromPresentation(presentation);
+        messageRepository.save(message);
+        presentation.setManagedMessage(message);
+        return presentation;
+    }
+
+    @Override
+    public MessagePresentation remove(MessagePresentation presentation) {
+        return MessagePresentation
+                .createFromEntity(messageRepository.removeById(presentation.getId())).dropManaged();
+    }
 }

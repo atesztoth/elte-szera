@@ -1,8 +1,8 @@
 package atesztoth.elte.szeraj.controller;
 
-import atesztoth.elte.szeraj.Domain.MessagePresentation;
-import atesztoth.elte.szeraj.Domain.UserPresentation;
-import atesztoth.elte.szeraj.Domain.Role;
+import atesztoth.elte.szeraj.presentation.MessagePresentation;
+import atesztoth.elte.szeraj.presentation.UserPresentation;
+import atesztoth.elte.szeraj.presentation.Role;
 import atesztoth.elte.szeraj.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class LoginController {
         userPresentation.setLastName("Tóth");
         userPresentation.setPassword("aa");
         userPresentation.setType(Role.GUEST);
-        userService.createUser(userPresentation);
+        userService.create(userPresentation);
     }
 
     private void createMessage() {

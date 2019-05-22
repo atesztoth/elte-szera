@@ -1,6 +1,6 @@
 package atesztoth.elte.szeraj.service;
 
-import atesztoth.elte.szeraj.Domain.UserPresentation;
+import atesztoth.elte.szeraj.presentation.UserPresentation;
 import atesztoth.elte.szeraj.data.User;
 import atesztoth.elte.szeraj.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,17 @@ public class SzerajUserService implements UserService {
     }
 
     @Override
-    public User createUser(UserPresentation userPresentation) {
+    public UserPresentation create(UserPresentation userPresentation) {
         User user = User.createFromPresentation(userPresentation);
-        return userRepository.save(user);
+        userRepository.save(user);
+        userPresentation.setManagedUser(user);
+        return userPresentation;
+    }
+
+    @Override
+    public UserPresentation remove(UserPresentation presentation) {
+        Optional<User> user = userRepository.findById(presentation.getId());
+        return user.map(UserPresentation::createFromEntity).orElse(null);
     }
 
 
