@@ -23,24 +23,8 @@ public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    private void createDummyUser() {
-        final UserPresentation userPresentation = new UserPresentation();
-        userPresentation.setUsername("atesztoth");
-        userPresentation.setFirstName("Attila");
-        userPresentation.setLastName("Tóth");
-        userPresentation.setPassword("aa");
-        userPresentation.setType(Role.GUEST);
-        userService.create(userPresentation);
-    }
-
-    private void createMessage() {
-        final MessagePresentation presentation = new MessagePresentation();
-        presentation.setMessage("New message mannn");
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView getLoginPage(@RequestParam Optional<String> error) {
-//        createDummyUser();
         logger.debug("Getting login page, error={}", error);
         return new ModelAndView("login", "error", error);
     }
