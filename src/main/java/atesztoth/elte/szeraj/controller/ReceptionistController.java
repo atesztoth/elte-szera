@@ -1,8 +1,6 @@
 package atesztoth.elte.szeraj.controller;
 
-import antlr.debug.MessageEvent;
 import atesztoth.elte.szeraj.data.Friend;
-import atesztoth.elte.szeraj.data.Message;
 import atesztoth.elte.szeraj.data.User;
 import atesztoth.elte.szeraj.presentation.MessageAnswerType;
 import atesztoth.elte.szeraj.presentation.MessagePresentation;
