@@ -10,6 +10,7 @@ public class MessagePresentation {
 
     public static MessagePresentation createFromEntity(Message message) {
         MessagePresentation presentation = new MessagePresentation();
+        if (message == null) return presentation;
         presentation.setId(message.getId());
         presentation.setMessage(message.getMessage());
         presentation.setSent(message.getSent());
@@ -111,5 +112,15 @@ public class MessagePresentation {
     public MessagePresentation dropManaged() {
         this.managedMessage = null;
         return this;
+    }
+
+    public MessagePresentation dropAttached() {
+        this.friend = null;
+        this.guest = null;
+        return this;
+    }
+
+    public MessagePresentation displayable() {
+        return dropManaged().dropAttached();
     }
 }

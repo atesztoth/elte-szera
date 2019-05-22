@@ -2,13 +2,10 @@ package atesztoth.elte.szeraj.controller;
 
 import atesztoth.elte.szeraj.data.Friend;
 import atesztoth.elte.szeraj.data.User;
-import atesztoth.elte.szeraj.presentation.FriendPresentation;
+import atesztoth.elte.szeraj.presentation.MessageAnswerType;
 import atesztoth.elte.szeraj.presentation.MessagePresentation;
 import atesztoth.elte.szeraj.presentation.MessageType;
-import atesztoth.elte.szeraj.service.AuthorizationService;
-import atesztoth.elte.szeraj.service.FriendService;
-import atesztoth.elte.szeraj.service.MessageService;
-import atesztoth.elte.szeraj.service.UserService;
+import atesztoth.elte.szeraj.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("guest")
@@ -42,8 +41,25 @@ public class GuestController {
     FriendService friendService;
 
     @GetMapping("/messages")
-    ResponseEntity<List<MessagePresentation>> getMessages() {
-        return new ResponseEntity<>(messageService.getAllForUser(authService.getPrincipal().getUser()), HttpStatus.OK);
+    ResponseEntity<List<MessageAnswerType>> getMessages() {
+        return new ResponseEntity<>(
+                messageService.getAllForUser(authService.getPrincipal().getUser())
+                        .stream().map(MessageAnswerType::createFromPresentation).collect(Collectors.toList()),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/message/{mid}")
+    ResponseEntity<MessageAnswerType> readMessage(@PathVariable("mid") int messageId) {
+        MessagePresentation presentation = messageService.getMessageById(messageId);
+        ((SzerajMessageService) messageService).setReadIfNot(presentation);
+        return new ResponseEntity<>(MessageAnswerType.createFromPresentation(presentation), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/message/{mid}")
+    ResponseEntity<MessageAnswerType> deleteMessage(@PathVariable("mid") int messageId) {
+        MessagePresentation presentation = messageService.removeById(messageId);
+        return new ResponseEntity<>(MessageAnswerType.createFromPresentation(presentation), HttpStatus.OK);
     }
 
     @PostMapping("/message")
@@ -53,6 +69,7 @@ public class GuestController {
         presentation.setGuest(me.get()); // like force unwrapping in swift ... Living dangerously wow 😂
         presentation.setFriend(friend);
         presentation.setMessageType(MessageType.OUTGOING);
+        presentation.setSent(new Date());
         return new ResponseEntity<>(messageService.create(presentation).dropManaged(), HttpStatus.CREATED);
     }
 

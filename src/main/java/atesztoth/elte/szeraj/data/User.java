@@ -2,6 +2,7 @@ package atesztoth.elte.szeraj.data;
 
 import atesztoth.elte.szeraj.presentation.Role;
 import atesztoth.elte.szeraj.presentation.UserPresentation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;

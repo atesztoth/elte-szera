@@ -9,6 +9,12 @@ public interface MessageService extends ContentService<MessagePresentation> {
 
     MessagePresentation getMessageById(int id);
 
+    MessagePresentation setRead(MessagePresentation unRead);
+
+    MessagePresentation removeById(int id);
+
     List<MessagePresentation> getAllForUser(User user);
+
+    List<MessagePresentation> getAllForFriendByGuest(int friendId, String guestId);
 
 }

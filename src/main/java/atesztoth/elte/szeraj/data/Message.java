@@ -43,10 +43,10 @@ public class Message implements Serializable {
     @Nullable
     private Date delivered;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User guest;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Friend friend;
 
     @Enumerated(EnumType.STRING)
